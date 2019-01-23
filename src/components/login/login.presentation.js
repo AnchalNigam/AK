@@ -1,9 +1,16 @@
 import React from 'react';
-import LoginForm from './login.container';
+import './login.presentation.css';
 
-const Login = () => (
-    <input type="text" name="user-name" placeholder="Username" onChange={LoginForm.onFillUsername}/>
-    <input type="text" name="user-name" placeholder="Username" onChange={LoginForm.onFillUsername}/>
+const LoginView = ({name, onChange,onBlur, error, label}) => (
+    <div className="inputGroup">
+        <label>
+           UserName
+           <input type="text" name={name} placeholder={name}  
+           onChange={onChange}
+           onBlur={onBlur}
+           />
+       </label>
+    </div>
 )
 
-export default Login;
+export default LoginView;
