@@ -31,7 +31,7 @@ export const LogoView=()=>(
     <div className="col-12 text-center">
     <img src='https://s3.amazonaws.com/admitkard-frontend-resources/img/img-2/logo.png' 
     className="img-responsive d-block mx-auto" alt="ak_logo"/>
-    <h2 className="ak_color">Help<span className="ak_color"> Management</span>Portal</h2>
+    <h2 className="ak_color set_font">Help<span className="ak_color_blue"> Management</span> Portal</h2>
     </div>
   
 )

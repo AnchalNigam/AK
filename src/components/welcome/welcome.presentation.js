@@ -8,12 +8,12 @@ export const CarouselView = () => (
         </ul>
         <div className="carousel-inner">
             <div className="carousel-item active">
-                <img src="/assets/imgs/help2.png" alt="AK_HELP" width="100%" height="500"/>
+                <img src="/assets/imgs/help2.png" alt="AK_HELP" width="100%" height="700"/>
                 <div className="carousel-caption">    
                 </div>
             </div>
             <div className="carousel-item">
-                <img src="assets/imgs/help1.jpeg" alt="AK_HELP" width="100%" height="500"/>
+                <img src="assets/imgs/help1.jpeg" alt="AK_HELP" width="100%" height="700"/>
                 <div className="carousel-caption">    
                 </div>
             </div>

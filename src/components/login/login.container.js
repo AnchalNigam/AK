@@ -31,7 +31,7 @@ class LoginContainer extends React.Component {
            password:this.state.password
        }
        login(data)
-       .then((response)=>saveUserDetail(response.data),this.props.history.push('/second'))
+       .then((response)=>saveUserDetail(response.data),this.props.history.push('/chat'))
        .catch((e)=>console.log('error',e))
     }
     

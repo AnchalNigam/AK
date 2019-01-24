@@ -3,3 +3,15 @@
     border-radius:5px;
     padding:6px;
 }
+@media all and (min-width:767px){
+    .set_font{
+        font-size:30px;;
+    }
+}
+
+@media all and (max-width:767px){
+    .set_font{
+        font-size:23px;;
+    }
+}
+
