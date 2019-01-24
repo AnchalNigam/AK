@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.nopad{
+  padding-left:0px;
+  padding-right:0px;
+}
+.ak_color{
+  color:grey;
+}
+.ak_color_blue{
+  color:#00BCF9;
+}

@@ -9,17 +9,16 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarResponsive">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                <Link to='/' className="nav-link">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/" className="nav-link">Link</Link>
-              </li>
-            </ul>
-          </div>
-      </nav>
+                  <Link to='/' className="nav-link">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/" className="nav-link">Link</Link>
+                </li>
+              </ul>
+            </div>
+        </nav>
       );
     }
   }
-  
 export default Header;
   

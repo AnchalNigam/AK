@@ -1,47 +1,69 @@
 import React from 'react';
 import './login.presentation.css';
 import LoginView from './login.presentation';
+import {CarouselView} from './login.presentation';
+import {LogoView} from './login.presentation';
+import {ButtonView} from './login.presentation';
+import {login} from './../../services/apis/userManageApi';
+import {saveUserDetail} from './../../session';
 
 class LoginContainer extends React.Component {
     state = {
         userName: "",
         password: "",
+        error:''
     };
-    validateName = name => {
-        const regex = /[A-Za-z]{3,}/;
-    
-        return !regex.test(name)
-          ? "The name must contain at least three letters. Numbers and special characters are not allowed."
-          : "";
-      };
+
     onFilluserName = event => {
         this.setState({
             userName: event.target.value,
         });
-        console.log(this.state.userName)
     }
     onFillPassword = event => {
         this.setState({
             password: event.target.value,
         })
     }
-    onUserNameBlur = () => {
-        const { password } = this.state;
-        console.log(password)
-        const lastNameError = this.validateName(password);
-         console.log(lastNameError)
-        return this.setState({ lastNameError });
-      };
+    
+    submitForm=()=>{
+       let data={
+           email:this.state.userName,
+           password:this.state.password
+       }
+       login(data)
+       .then((response)=>saveUserDetail(response.data),this.props.history.push('/second'))
+       .catch((e)=>console.log('error',e))
+    }
+    
     render() {
         return (
-          <div className="form">
-             <LoginView
-              name="UserName"
-              onChange={this.onFilluserName}
-              onBlur={this.onUserNameBlur}
-            />
-             
-          </div>
+         <div className="container-fluid">
+             <div className="row mt-5">
+                <div className="col-lg-6 col-md-6 d-none d-md-block">
+                   <CarouselView/>
+                </div>
+                <div className="col-lg-6 col-md-6 col-12">
+                    <LogoView/>
+                    <div className="row">
+                        <LoginView
+                            type="text"
+                            label="UserName"
+                            name="UserName"
+                            onChange={this.onFilluserName}
+                        />
+                        <LoginView
+                            type="password"
+                            label="Password"
+                            name="Password"
+                            onChange={this.onFillPassword}
+                        />
+                        <ButtonView click={this.submitForm}/>
+                    </div>
+                </div>
+                {/* column end */}
+             </div>
+             {/* row end */}
+         </div>
         );
       }
 }
