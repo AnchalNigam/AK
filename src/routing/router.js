@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route,withRouter } from 'react-router-dom';
 import React from 'react';
 import LoginContainer from '../components/login/login.container';
 import ChatContainer from './../components/chat/chat.container';
@@ -8,9 +8,9 @@ export const Router = () => (
     <Switch>
       <Route exact path='/' component={LoginContainer}/>
       <Route exact path='/second' component={second}/>
-      <Route exact path='/chat' component={ChatContainer}/>
-      <Route exact path='/chatscreen' component={ChatScreenContainer}/>
-
+      <Route exact path='/chat' component={withRouter(ChatContainer)}/>
+      <Route exact path='/chatscreen' component={withRouter(ChatScreenContainer)}/>
+      <Route exact path='/list/:userType' component={withRouter(ChatContainer)}/>
     </Switch>
 )
 

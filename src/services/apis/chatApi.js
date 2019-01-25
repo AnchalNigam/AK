@@ -23,3 +23,47 @@ export async function chatList() {
     return result;
   
   }
+
+//method to get mentor list 
+export async function mentorList() {
+  // console.log(skip)
+  let result= getUserInfo()
+  .then(async function fetchHistory(userInfo){
+    let data2={
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'token':userInfo.token
+      },
+    
+    };
+  // let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/mentors?skip=${skip}`,data2).then(response =>{ return response.json()});
+   console.log(result)
+   return result;
+  })
+  .catch((e)=>console.log(e,'mentor list api error'))
+  return result;
+
+}
+
+//method to get student list 
+export async function studentList() {
+  let result= getUserInfo()
+  .then(async function fetchHistory(userInfo){
+    let data2={
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'token':userInfo.token
+      },
+    
+    };
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/students`,data2).then(response =>{ return response.json()});
+  return result;
+  })
+  .catch((e)=>console.log('student list api error'))
+  return result;
+
+}

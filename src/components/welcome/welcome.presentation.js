@@ -13,7 +13,7 @@ export const CarouselView = () => (
                 </div>
             </div>
             <div className="carousel-item">
-                <img src="assets/imgs/help1.jpeg" alt="AK_HELP" width="100%" height="700"/>
+                <img src="/assets/imgs/help1.jpeg" alt="AK_HELP" width="100%" height="700"/>
                 <div className="carousel-caption">    
                 </div>
             </div>
