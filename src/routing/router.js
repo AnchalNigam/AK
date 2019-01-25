@@ -3,6 +3,7 @@ import React from 'react';
 import LoginContainer from '../components/login/login.container';
 import ChatContainer from './../components/chat/chat.container';
 import ChatScreenContainer from '../components/chatscreen/chatscreen.container';
+import UserDetailsContainer from '../components/details/userdetails.container';
 
 export const Router = () => (
     <Switch>
@@ -10,7 +11,7 @@ export const Router = () => (
       <Route exact path='/second' component={second}/>
       <Route exact path='/chat' component={ChatContainer}/>
       <Route exact path='/chatscreen' component={ChatScreenContainer}/>
-
+      <Route exact path='/userdetails' component={UserDetailsContainer}/>
     </Switch>
 )
 

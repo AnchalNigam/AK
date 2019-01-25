@@ -1,0 +1,25 @@
+.img-adjust{
+    width:12vmin;
+    height:12vmin;
+}
+
+.empty-div {
+    height: 10%;
+    clear: both;
+    width: 100%;
+}
+
+.card-piece {
+    width: 100%;
+}
+
+.para {
+    padding: 0;
+    margin: 0
+}
+
+.horizontal-line-style {
+    margin-top: 0.4vmin;
+    height: 2px;
+    background-color: #4fc3f7;
+}
