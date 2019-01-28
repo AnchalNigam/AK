@@ -1,6 +1,7 @@
 .img-adjust{
     width:10vmin;
 	height:10vmin;
+	position: relative;
 }
 @media only screen and (max-width:1020px){
     .img-adjust{
@@ -65,4 +66,20 @@
 .chat-top-adjust{
 	margin-top:4vmin;
 	margin-bottom:4vmin;
+}
+
+.color-class {
+	background-color:#4fc3f7;	
+	color: white;
+}
+
+.center {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-size: 7vmin;
+	font-family: inherit;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
