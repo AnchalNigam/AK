@@ -2,6 +2,7 @@ import React from 'react';
 import './chatlist.presentation.css'
 import convertToDate from './../../../utils/timeToDateConversion';
 import getFirtCharAsImage from './../firstchardesign/firstCharDesign.presentation';
+import firstCharUpperCase from './../../../utils/firstCharCapital';
 
 export const ChatList = ({click,userDetail}) => (
    <div onClick={click} className="card my-card" id="card-design">
@@ -11,8 +12,8 @@ export const ChatList = ({click,userDetail}) => (
                {userDetail.imageUrl == null ? getFirtCharAsImage(userDetail.name) : <img src={userDetail.imageUrl} alt="user_photo" className="img-adjust img-fluid rounded-circle"/>}
             </div>
             <div className="col-lg-6 col-6 col-sm-8  col-md-6">
-               <span className="d-block font-adjust-heading">{userDetail.name}<div className="circle bg bg-success rounded-circle"></div></span>
-               <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "You have no messages from this user" : userDetail.lastMessage.messageText}</small></span>
+               <span className="d-block font-adjust-heading">{firstCharUpperCase(userDetail.name)}<div className="circle bg bg-success rounded-circle"></div></span>
+               <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "" : userDetail.lastMessage.messageText}</small></span>
             </div>
       
             <div className="col-lg-3 col-3 col-sm-2 col-md-3 text-center">
