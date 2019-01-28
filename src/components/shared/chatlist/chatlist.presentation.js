@@ -10,11 +10,12 @@ export const ChatList = ({click,userDetail}) => (
             </div>
             <div className="col-lg-6 col-6 col-sm-8  col-md-6">
                <span className="d-block font-adjust-heading">{userDetail.name}<div className="circle bg bg-success rounded-circle"></div></span>
-               <span className="font-adjust-heading"><small>Hii!</small></span>
+               <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "You have no messages from this user" : userDetail.lastMessage.messageText}</small></span>
             </div>
       
-            <div className="col-lg-3 col-3 col-sm-2  col-md-3">
-               <h6 className="font-adjust-heading"><small>2:00 pm</small></h6>
+            <div className="col-lg-3 col-3 col-sm-2 col-md-3 text-center">
+               <h6 className="font-adjust-heading"><small>{userDetail.lastMessage==null?"":userDetail.lastMessage.createdAt}</small></h6>
+                  {userDetail.unreadCount==null?"":userDetail.unreadCount>0?<div className="container"><span className="rounded-circle bg-dark">{userDetail.unreadCount}</span></div>:""}
             </div>
          </div>
       </div>
