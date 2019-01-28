@@ -1,7 +1,7 @@
 import React from 'react';
 import {ChatView} from './chat.presentation';
 import {chatList} from './../../services/apis/chatApi';
-// import {mentorList} from './../../services/apis/chatApi';
+import {studentList} from './../../services/apis/chatApi';
 import mentorlist from './mentorList.json';
 class ChatContainer extends React.Component {
     state={
@@ -17,9 +17,12 @@ class ChatContainer extends React.Component {
       }
       else if(this.props.match.params.userType==='mentor'){
         this.setState({userType:'mentor',list:mentorlist})
+       
       }
       else{
-        this.setState({userType:'student'})
+        studentList(0)
+        .then((response)=>this.setState({list:response.data,userType:'student'}))
+        .catch((e)=>console.log(e))
 
       }
       

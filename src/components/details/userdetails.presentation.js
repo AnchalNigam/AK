@@ -97,26 +97,3 @@ export const UserDetailsView = () => (
     
     </div>
 )
-
-{/* <div className="row">
-            <div className="card card-piece">
-            </div>
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th scope="col">Applied to</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> */}
