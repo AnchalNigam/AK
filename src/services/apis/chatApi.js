@@ -25,7 +25,7 @@ export async function chatList() {
   }
 
 //method to get mentor list 
-export async function mentorList() {
+export async function mentorList(skip) {
   // console.log(skip)
   let result= getUserInfo()
   .then(async function fetchHistory(userInfo){
@@ -38,7 +38,7 @@ export async function mentorList() {
       },
     
     };
-  // let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/mentors?skip=${skip}`,data2).then(response =>{ return response.json()});
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/mentors?skip=${skip}`,data2).then(response =>{ return response.json()});
    console.log(result)
    return result;
   })
@@ -48,7 +48,7 @@ export async function mentorList() {
 }
 
 //method to get student list 
-export async function studentList() {
+export async function studentList(skip) {
   let result= getUserInfo()
   .then(async function fetchHistory(userInfo){
     let data2={
@@ -60,7 +60,7 @@ export async function studentList() {
       },
     
     };
-  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/students`,data2).then(response =>{ return response.json()});
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/all-students?skip=${skip}`,data2).then(response =>{ return response.json()});
   return result;
   })
   .catch((e)=>console.log('student list api error'))
