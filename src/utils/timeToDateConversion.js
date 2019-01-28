@@ -4,12 +4,12 @@ function pad(num) {
 }
 //function to convert date from timestamp to human readable
 export function convertToDate(timeStamp){
-   if(timeStamp!=null){
+   if(timeStamp!==null){
        let data= new Date(timeStamp);
        var today=new Date();
        let FullDate=`${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
        let todayData=`${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
-       if(todayData!=FullDate){
+       if(todayData!==FullDate){
            return FullDate;
        }
        else{
