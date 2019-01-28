@@ -74,12 +74,12 @@
 }
 
 .circle-class {
-	display: table-cell;
+	height: 5.8vmin;
+	width: 5.8vmin;
 	text-align: center;
 	vertical-align: middle;
-	border-radius: 50%;
-	font-family: inherit;
 }
+
 .center {
 	margin: 0;
 	position: absolute;
@@ -89,4 +89,10 @@
 	font-family: inherit;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+
+.div_center{
+	display:flex;
+	justify-content :center;
+	align-items: center;
 }

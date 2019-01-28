@@ -8,7 +8,7 @@ export const UserDetailsView = () => (
             <div className="card card-piece">
                 <div className="text-center">
                     <div className="card-body">
-                    <img src="assets/imgs/user1.jpg" alt="profile-pic" className="img-adjust rounded-circle"/>
+                    <img src="assets/imgs/user1.jpg" alt="profile-pic" className="pic-adjust rounded-circle"/>
                         <h4 className="card-title">Tarandeep Singh</h4>
                         <p className="card-text para">Master of Accounting and Law(2018)</p>
                         <p className="card-text para">Deakin University</p>
