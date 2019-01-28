@@ -10,3 +10,6 @@
 .set_color{
    color: white;
 }
+.center_div{
+    display:flex;align-items:center;justify-content:center
+}
