@@ -73,6 +73,13 @@
 	color: white;
 }
 
+.circle-class {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 50%;
+	font-family: inherit;
+}
 .center {
 	margin: 0;
 	position: absolute;

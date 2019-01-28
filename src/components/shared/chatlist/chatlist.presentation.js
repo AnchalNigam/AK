@@ -16,19 +16,25 @@ export const ChatList = ({click,userDetail}) => (
                <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "" : userDetail.lastMessage.messageText}</small></span>
             </div>
       
-            <div className="col-lg-3 col-3 col-sm-2 col-md-3 text-center">
+            <div className="col-lg-3 col-3 col-sm-2 col-md-3">
                <div className="row">
-                  <h6 className="font-adjust-heading">
-                     <small>
-                        {userDetail.lastMessage == null ? "" : convertToDate(userDetail.lastMessage.createdAt)}
-                     </small>
-                  </h6>
-               
-                  <div className="col-12"></div>
-                  {userDetail.unreadCount == null ? "" : userDetail.unreadCount > 0 ?<div className="rounded-circle p-1 color-class">{userDetail.unreadCount}</div>:""}
-                  <div className="col-12"></div>
+                  <div className="col-12">
+                     <h6 className="font-adjust-heading">
+                        <small>
+                           {userDetail.lastMessage == null ? "" : convertToDate(userDetail.lastMessage.createdAt)}
+                        </small>
+                     </h6>
+                  </div>
+                  <div className="container">
+                     <div className="row flex-grow-1">
+                        <div className="col-2"></div>
+                        <div className="col-8">
+                           {userDetail.unreadCount == null ? "" : userDetail.unreadCount > 0 ? <div className="circle-class color-class">{userDetail.unreadCount}</div> : ""}
+                        </div>
+                        <div className="col-2"></div>
+                     </div>
+                  </div>
                </div>
-               
             </div>
          </div>
       </div>
