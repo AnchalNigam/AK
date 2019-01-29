@@ -74,8 +74,9 @@
 }
 
 .circle-class {
-	height: 5.8vmin;
-	width: 5.8vmin;
+	height: 4vmin;
+	width: 4vmin;
+	font-size: 1.8vmin;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -95,4 +96,17 @@
 	display:flex;
 	justify-content :center;
 	align-items: center;
+}
+.border-3{
+	border-width:5px !important;
+}
+
+.student_border {
+	border-color:grey !important;
+
+}
+
+.mentor_border {
+	border-color: #4fc3f7 !important;
+
 }

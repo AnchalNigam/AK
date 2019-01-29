@@ -1,8 +1,10 @@
 import React from 'react';
 import {ChatList} from './chatlist.presentation';
 import {Redirect} from 'react-router-dom';
+import {Loader} from './../loader/loader.presentation';
+
 class ChatListContainer extends React.Component {
-    goToChat=()=>{
+    goToChat = () => {
       // this.props.history.push('/chatscreen');
       console.log('clicked')
       return (
@@ -11,8 +13,8 @@ class ChatListContainer extends React.Component {
     }
     render() {
       console.log(this.props.chatList);
-       if(this.props.chatList==null){
-         return null
+       if(this.props.chatList==null || this.props.showLoader){
+         return <Loader />
        }
        else{
         return (
