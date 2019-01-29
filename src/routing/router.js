@@ -12,7 +12,7 @@ export const Router = () => (
       <Route exact path='/chat' component={ChatContainer}/>
       <Route exact path='/chatscreen' component={withRouter(ChatScreenContainer)}/>
       <Route exact path='/list/:userType' component={withRouter(ChatContainer)}/>
-      <Route exact path='/userdetails' component={withRouter(UserDetailsContainer)}/>
+      <Route exact path='/:userId/userdetails' component={withRouter(UserDetailsContainer)}/>
     </Switch>
 )
 

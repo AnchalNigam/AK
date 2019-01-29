@@ -67,3 +67,25 @@ export async function studentList(skip) {
   return result;
 
 }
+
+
+//method to get single user(mentor/student detail)
+export async function userDetail(data) {
+  let result= getUserInfo()
+  .then(async function fetchDetail(userInfo){
+    let data2={
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'token':userInfo.token
+      },
+    
+    };
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${data.selectedUserId}?queriedBy=${userInfo.userId}`,data2).then(response =>{ return response.json()});
+  return result;
+  })
+  .catch((e)=>console.log('user detail api error'))
+  return result;
+
+}

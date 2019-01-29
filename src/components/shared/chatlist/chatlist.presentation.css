@@ -23,8 +23,6 @@
 	font-size:16px;
 
 }
-    
-
 }
 #card-design{
 	cursor:pointer;
@@ -58,7 +56,6 @@
     .circle{
      width: 7px;
      height: 7px;
-   
      display:inline-block;
   }
 
