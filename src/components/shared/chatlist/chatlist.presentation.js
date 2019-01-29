@@ -13,7 +13,7 @@ export const ChatList = ({click,userDetail}) => (
             </div>
             <div className="col-lg-6 col-6 col-sm-8  col-md-6">
                <span className="d-block font-adjust-heading">{firstCharUpperCase(userDetail.name)}<div className="circle bg bg-success rounded-circle"></div></span>
-               <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "" : userDetail.lastMessage.userDetail.lastMessage.messageText.slice(0,22)+"..."}</small></span>
+               <span className="font-adjust-heading"><small>{userDetail.lastMessage==null? "" : userDetail.lastMessage.messageText.slice(0,22)+"..."}</small></span>
             </div>
       
             <div className="col-lg-3 col-3 col-sm-2 col-md-3">
