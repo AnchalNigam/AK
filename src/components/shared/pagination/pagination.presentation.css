@@ -1,6 +1,7 @@
 .btn-style {
     background-color: #4fc3f7;
-    margin: 0.2vmin;
+    margin-left: 1vmin;
+    margin-right: 1vmin;
     color: white;
     border-radius: 20%;
 }
