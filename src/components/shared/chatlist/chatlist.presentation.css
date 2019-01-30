@@ -1,6 +1,6 @@
 .img-adjust{
-    width:10vmin;
-	height:10vmin;
+    width:8vmin;
+	height:8vmin;
 	position: relative;
 }
 @media only screen and (max-width:1020px){
@@ -83,7 +83,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	font-size: 7vmin;
+	font-size: 4vmin;
 	font-family: inherit;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
