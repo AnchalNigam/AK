@@ -2,7 +2,7 @@ import React from 'react';
 import {CarouselView} from './../welcome/welcome.presentation';
 import ChatListContainer from './../shared/chatlist/chatlist.container';
 import SearchContainer from './../shared/search/search.container';
-import ListContainer from './../shared/list/userList.container';
+import UserListContainer from './../shared/list/userList.container';
 import PaginationContainer from './../shared/pagination/pagination.container';
 import './chat.presentation.css';
 
@@ -10,10 +10,11 @@ export const ChatView = ({userType,list,getPrevPageView,getNextPageView,showLoad
     <div className="container-fluid top-adjust">
       <div className="row">
         <div className="col-lg-4 col-md-5 col-12  box-decoration border p-3">
-             <SearchContainer/>
-             {userType===''?
-             <ChatListContainer showLoader={showLoader} chatList={list}/>  :
-             <ListContainer userList={list}/>
+            <SearchContainer/>
+            {
+              userType === '' ?
+                <ChatListContainer showLoader={showLoader} chatList={list} />  :
+                <UserListContainer userList={list} userType={userType} />
             }
             <PaginationContainer
               getPrevPageView={getPrevPageView}
