@@ -13,7 +13,7 @@ export const ChatList = ({click,userDetail}) => (
             <div className="col-lg-3 col-3 col-sm-2  col-md-3 div_center">
                {userDetail.imageUrl == null ? getFirtCharAsImage(userDetail.name) : <img src={userDetail.imageUrl} alt="user_photo" className="img-adjust img-fluid rounded-circle"/>}
             </div>
-            <div className="col-lg-6 col-6 col-sm-8  col-md-6">
+            <div className="col-lg-6 col-6 col-sm-8  col-md-6 nopad">
                <span className="d-block font-adjust-heading heading_color">{firstCharUpperCase(userDetail.name)}</span>
                <span className="font-adjust-heading subheading_color"><small>{userDetail.lastMessage==null? "" : userDetail.lastMessage.messageText.slice(0,22)+"..."}</small></span>
             </div>
