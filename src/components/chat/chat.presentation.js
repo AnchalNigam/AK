@@ -13,7 +13,7 @@ export const ChatView = ({userType,list,getPrevPageView,getNextPageView,showLoad
              <SearchContainer/>
              {userType===''?
              <ChatListContainer showLoader={showLoader} chatList={list}/>  :
-             <ListContainer userList={list}/>
+             <ListContainer showLoader={showLoader} userList={list}/>
             }
             <PaginationContainer
               getPrevPageView={getPrevPageView}

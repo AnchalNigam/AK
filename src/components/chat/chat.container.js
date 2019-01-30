@@ -28,9 +28,12 @@ class ChatContainer extends React.Component {
       });
       
     }
+    //function call when component mounted
     componentDidMount(){
      this.getApiCall(this.state.skip);
     }//end
+
+    //api call
     getApiCall=(skip)=>{
       if(this.props.match.url.search('chat')>-1){
         chatList(skip)
@@ -39,13 +42,13 @@ class ChatContainer extends React.Component {
        }
        else if(this.props.match.params.userType==='mentor'){
          mentorList(skip)
-         .then((response)=>this.setState({list:response.data,userType:'mentor'}))
+         .then((response)=>this.setState({list:response.data,userType:'mentor',showLoader:false}))
          .catch((e)=>console.log(e))
          console.log(this.state.list)
        }
        else{
          studentList(skip)
-         .then((response)=>this.setState({list:response.data,userType:'student'}))
+         .then((response)=>this.setState({list:response.data,userType:'student',showLoader:false}))
          .catch((e)=>console.log(e))
  
        }

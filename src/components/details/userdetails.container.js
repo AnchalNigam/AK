@@ -1,6 +1,7 @@
 import React from 'react';
 import {UserDetailsView} from './userdetails.presentation';
 import {userDetail} from './../../services/apis/chatApi';
+import {Loader} from './../shared/loader/loader.presentation';
 
 
 class UserDetailsContainer extends React.Component {
@@ -34,7 +35,7 @@ class UserDetailsContainer extends React.Component {
     }
     render() {
         if(this.state.user==null){
-            return null;
+            return <Loader/>;
         }
         return (
           <div className="container-fluid top-adjust">
