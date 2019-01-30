@@ -3,7 +3,7 @@ const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development
 
 
 //method to get all chatlist of a user
-export async function chatList() {
+export async function chatList(skip) {
     let result= getUserInfo()
     .then(async function fetchDetail(userInfo){
       let data2={
@@ -14,7 +14,7 @@ export async function chatList() {
           'token':userInfo.token
         },
       };
-    let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels`,data2).then(response =>{ return response.json()});
+    let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels?skip=${skip}`,data2).then(response =>{ return response.json()});
       // let result = await fetch(`${localUrl}/users/5b9a618c7282560a1b6ed6ca/channels`,data2).then(response =>{ return response.json()});
     return result;
   

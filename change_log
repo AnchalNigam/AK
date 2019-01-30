@@ -1,0 +1,4 @@
+The following changes were made in backend for test and dev purposes.
+
+In Channel.js, line 14 was added.
+In User.js, limit was changed from 100 to 10.
