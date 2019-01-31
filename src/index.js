@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 ReactDOM.render((
-    // <Provider store={store}>
+    <Provider store={store}>
         <BrowserRouter>
         <App />
         </BrowserRouter>
