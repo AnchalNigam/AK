@@ -6,12 +6,13 @@ import './App.css';
 import SocketContext from './services/socket/socketService'
 import { Switch, Route,withRouter } from 'react-router-dom';
 import {a} from "./services/socket/listenSocket";
+import { getUserInfo } from './session';
 
 // import Login from './components/login/login.presentation';
 class App extends Component {
   state = {
      socket:null,
-     updation:0
+     updation:0,
   };
 
   componentDidMount(){
@@ -24,7 +25,7 @@ class App extends Component {
   // comment out the below to re-render on every click
    shouldComponentUpdate(nextProps, nextState) {
     //  return this.state.updation != nextState.updation;
-    return this.state.updation != nextState.updation || this.props.location.pathname !== nextProps.location.pathname;;
+    return this.state.updation !== nextState.updation || this.props.location.pathname !== nextProps.location.pathname;;
   }
 
   // componentWillUpdate(nextProps, nextState) {

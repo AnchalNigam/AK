@@ -48,8 +48,7 @@ class ChatContainer extends React.Component {
       // const socket="anchal"
       this.props.socketContext.updateSocketValue('socket',socket);
       this.props.socketContext.updateSocketValue('updation',1);
-       
-
+      
       if(this.props.location.pathname!=='/chat'){
         if(this.props.socketContext.socketState.updation===1){
           this.getApiCall(this.state.skip);

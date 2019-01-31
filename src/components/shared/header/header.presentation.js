@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './header.presentation.css'; 
 
-export const HeaderView = ({handleClick}) => (
+export const HeaderView = ({path,handleClick}) => (
         <nav className="navbar navbar-expand-md navbar-light bg-light static-top">
         <div  className="container-fluid">
           <img src="https://s3.amazonaws.com/admitkard-frontend-resources/img/img-2/logo.png" alt=""/>
@@ -10,6 +10,7 @@ export const HeaderView = ({handleClick}) => (
             <span></span>
             <i className="fa fa-ellipsis-v text-dark"></i>
           </button>
+          {path!=='/'?
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
@@ -25,7 +26,9 @@ export const HeaderView = ({handleClick}) => (
                 <button type="button" className="btn btn-style" onClick={handleClick}>Sign Out</button>
               </li>   
             </ul>
-          </div>  
+          </div> 
+          : ''
+          } 
         </div>
       </nav>
 )
