@@ -21,8 +21,7 @@ class HeaderContainer extends React.Component {
         logout()
         .then((response)=>
             response.statusCode === 200 || response.statusCode === 201 || response.statusCode === 403 ?
-             (this.props.history.push('/'),
-             deleteUserInfo()):
+             (deleteUserInfo(), this.props.history.push('/')):
             console.log("logout failed")
     )
         .catch((e)=>console.log(e));
