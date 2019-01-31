@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './components/shared/header/header.presentation';
+import HeaderContainer from './components/shared/header/header.container';
 import {Router} from './routing/router';
 import Footer from './components/shared/footer/footer.presentation';
 import './App.css';
@@ -44,7 +44,7 @@ class App extends Component {
     }
     return (
       <div className="col-12 nopad">
-        <Header/>
+        <HeaderContainer />
         <div className="set-height">
           <SocketContext.Provider value={{socketState:this.state,updateSocketValue: this.updateSocketValue}}>
             <Router/>

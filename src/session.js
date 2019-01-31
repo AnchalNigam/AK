@@ -27,3 +27,15 @@ export const getUserInfo = async () => {
       return userInfo;
     }
   }
+  //deleting all details from local 
+  export const deleteUserInfo = async () => {
+    
+    try {
+       await (localStorage.removeItem('userInfo'), localStorage.clear());
+  
+    } catch (error) {
+      // Error retrieving data
+      console.log('error',error.message);
+    }
+  }
+ 
