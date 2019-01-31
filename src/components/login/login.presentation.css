@@ -15,3 +15,23 @@
     }
 }
 
+.anim {
+    visibility: hidden;
+    animation: FadeAnimation 5s ease-in 0s;
+}
+
+@keyframes FadeAnimation {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.no-show {
+    visibility: hidden;
+}

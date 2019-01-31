@@ -32,7 +32,7 @@ class LoginContainer extends React.Component {
         })
     }
     
-    submitForm=()=>{
+    submitForm = () => {
        let data={
            email:this.state.userName,
            password:this.state.password
@@ -71,6 +71,9 @@ class LoginContainer extends React.Component {
                             name="Password"
                             onChange={this.onFillPassword}
                         />
+                        <div className={this.state.error!==''?"anim col-12 text-center":"no-show"}>
+                                {this.state.error}
+                        </div>
                         <ButtonView click={this.submitForm}/>
                     </div>
                 </div>
