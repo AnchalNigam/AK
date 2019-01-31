@@ -38,7 +38,6 @@ class App extends Component {
   // }
 
   render() {
-    console.log('rerenser app')
     if(this.state.socket!=null){
       console.log('yess')
         a(this.state.socket)

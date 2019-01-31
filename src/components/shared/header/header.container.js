@@ -11,7 +11,6 @@ class HeaderContainer extends React.Component {
         // logoutStatus:false
     }
     componentDidMount() {
-        console.log("header mounted")
         getUserInfo()
         .then((response)=>response!=='none'?this.setState({isLoggedIn:true}):this.setState({isLoggedIn:false}))
     }
@@ -29,7 +28,6 @@ class HeaderContainer extends React.Component {
         .catch((e)=>console.log(e));
     }
     render() {
-        console.log(this.state.isLoggedIn)
         return (
             <HeaderView handleClick={this.submitOnForm} path={this.props.location.pathname}/>
         )

@@ -6,6 +6,7 @@ import {LogoView} from './login.presentation';
 import {ButtonView} from './login.presentation';
 import {login} from './../../services/apis/userManageApi';
 import {saveUserDetail} from './../../session';
+import {getUserInfo} from './../../session';
 
 class LoginContainer extends React.Component {
     state = {
@@ -13,7 +14,11 @@ class LoginContainer extends React.Component {
         password: "",
         error:''
     };
-
+    componentDidMount() {
+        getUserInfo()
+        .then((response)=>response!=='none'?this.props.history.push('/chat'):null)
+        .catch((error)=>console.log(error))
+    }
     onFilluserName = event => {
         this.setState({
             userName: event.target.value,
