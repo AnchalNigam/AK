@@ -12,7 +12,6 @@ class ChatListContainer extends React.Component {
        )
     }
     render() {
-      console.log(this.props.chatList);
        if(this.props.chatList==null || this.props.showLoader){
          return <Loader />
        }

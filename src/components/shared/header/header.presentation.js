@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './header.presentation.css'; 
 
-export const HeaderView = (handleClick) => (
+export const HeaderView = ({handleClick}) => (
         <nav className="navbar navbar-expand-md navbar-light bg-light static-top">
         <div  className="container-fluid">
           <img src="https://s3.amazonaws.com/admitkard-frontend-resources/img/img-2/logo.png" alt=""/>

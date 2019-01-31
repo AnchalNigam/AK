@@ -6,15 +6,15 @@ import UserListContainer from './../shared/list/userList.container';
 import PaginationContainer from './../shared/pagination/pagination.container';
 import './chat.presentation.css';
 
-export const ChatView = ({userType,list,getPrevPageView,getNextPageView,showLoader}) => (
+export const ChatView = ({chatList,userType,list,getPrevPageView,getNextPageView,showLoader}) => (
     <div className="container-fluid top-adjust">
       <div className="row">
         <div className="col-lg-4 col-md-5 col-12  box-decoration border p-3">
-            <SearchContainer/>
-            {
-              userType === '' ?
-                <ChatListContainer showLoader={showLoader} chatList={list} />  :
-                <UserListContainer userList={list} userType={userType} />
+             <SearchContainer/>
+             {userType===''?
+             <ChatListContainer showLoader={showLoader} chatList={list}/>  :
+             <UserListContainer showLoader={showLoader} userList={list} userType={userType}/>
+
             }
             <PaginationContainer
               getPrevPageView={getPrevPageView}

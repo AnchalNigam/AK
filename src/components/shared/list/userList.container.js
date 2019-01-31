@@ -1,6 +1,8 @@
 import React from 'react';
 import {UserList} from './userList.presentation';
 import {Redirect} from 'react-router-dom';
+import {Loader} from './../loader/loader.presentation';
+
 class UserListContainer extends React.Component {
    
     goToChat=()=>{
@@ -12,8 +14,8 @@ class UserListContainer extends React.Component {
     }
   
     render() {
-       if(this.props.userList==null){
-         return null
+       if(this.props.userList==null || this.props.showLoader){
+        return <Loader />;
        }
        else{
         return (
