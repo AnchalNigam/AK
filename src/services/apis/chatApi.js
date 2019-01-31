@@ -89,3 +89,25 @@ export async function userDetail(data) {
   return result;
 
 }
+
+
+//method to get chat history
+export async function chatHistory(channelId,skip) {
+  let result= getUserInfo()
+  .then(async function fetchHistory(userInfo){
+    let data2={
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'token':userInfo.token
+      },
+    
+    };
+  let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels/${channelId}/history?skip=${skip}`,data2).then(response =>{ return response.json()});
+  return result;
+  })
+  .catch((e)=>console.log('chatHistory api error'))
+  return result;
+
+}
