@@ -14,9 +14,11 @@ class LoginContainer extends React.Component {
         password: "",
         error:''
     };
+    
     componentDidMount() {
+        console.log("mounted login")
         getUserInfo()
-        .then((response)=>response!=='none'?this.props.history.push('/chat'):null)
+        .then((response)=>(response!=='none'&&response!==null)?this.props.history.push('/chat'):null)
         .catch((error)=>console.log(error))
     }
     onFilluserName = event => {
@@ -36,8 +38,14 @@ class LoginContainer extends React.Component {
            password:this.state.password
        }
        login(data)
-       .then((response)=>saveUserDetail(response.data))
-       .then((res)=>this.props.history.push('/chat'))
+       .then((response)=>{
+           (response.success===true && response.data!==null && response.statusCode !==400) ?
+           saveUserDetail(response.data)
+           .then(this.setState({error:''}))
+           .then((res)=>this.props.history.push('/chat'))
+           .catch((e) => console.log(e)) :
+           this.setState({error:response.message})
+       })
        .catch((e)=>console.log('error',e))
     }
     
