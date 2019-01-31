@@ -1,17 +1,17 @@
 import React from 'react';
 import {ChatList} from './chatlist.presentation';
-import {Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {Loader} from './../loader/loader.presentation';
 
 class ChatListContainer extends React.Component {
-    goToChat = () => {
+    goToChat = (userId) => {
       // this.props.history.push('/chatscreen');
       console.log('clicked')
-      return (
-        <Redirect to='/chatscreen'/>     
-       )
+      this.props.history.push('/chatscreen/'+userId)
     }
     render() {
+      console.log(this.props.showLoader)
+      console.log(this.props.chatList)
        if(this.props.chatList==null || this.props.showLoader){
          return <Loader />
        }
@@ -20,7 +20,7 @@ class ChatListContainer extends React.Component {
           <div className="row">
             <div className="col-lg-12 col-12">
                {this.props.chatList.channels.map((user)=>(
-                   <ChatList key={user._id} userDetail={user} click={this.goToChat}/> 
+                   <ChatList key={user._id} userDetail={user} click={()=>this.goToChat(user._id)}/> 
                ))}
               
             </div>
@@ -30,4 +30,4 @@ class ChatListContainer extends React.Component {
       }
 }
 
-export default ChatListContainer;
+export default withRouter(ChatListContainer);
