@@ -5,6 +5,7 @@ import Footer from './components/shared/footer/footer.presentation';
 import './App.css';
 import SocketContext from './services/socket/socketService'
 import { Switch, Route,withRouter } from 'react-router-dom';
+import {a} from "./services/socket/listenSocket";
 
 // import Login from './components/login/login.presentation';
 class App extends Component {
@@ -14,19 +15,18 @@ class App extends Component {
   };
 
   componentDidMount(){
-    console.log('mount')
   }
+
   updateSocketValue = (key, val) => {
-    console.log('updated')
     this.setState({[key]: val});
    }
-  // //  // comment out the below to re-render on every click
+
+  // comment out the below to re-render on every click
    shouldComponentUpdate(nextProps, nextState) {
-     console.log(this.state.updation)
-     console.log(nextState.updation)
-     return this.state.updation != nextState.updation;
-    // return this.state.updation != nextState.updation || this.props.location.pathname !== nextProps.location.pathname;;
+    //  return this.state.updation != nextState.updation;
+    return this.state.updation != nextState.updation || this.props.location.pathname !== nextProps.location.pathname;;
   }
+
   // componentWillUpdate(nextProps, nextState) {
   //   console.log('updated yes')
   //   console.log(nextProps,nextState)
@@ -35,15 +35,20 @@ class App extends Component {
   //   console.log('yes')
   //   console.log(prevProps,prevState)
   // }
+
   render() {
-    console.log('rerender app')
-    console.log(this.props.location)
+    console.log('rerenser app')
+    if(this.state.socket!=null){
+      console.log('yess')
+        a(this.state.socket)
+    }
     return (
       <div className="col-12 nopad">
         <HeaderContainer />
         <div className="set-height">
           <SocketContext.Provider value={{socketState:this.state,updateSocketValue: this.updateSocketValue}}>
             <Router/>
+            
           </SocketContext.Provider>
         </div>
         <Footer/>
@@ -53,3 +58,4 @@ class App extends Component {
 }
 
 export default withRouter(App);
+
