@@ -15,10 +15,10 @@ export const UserList = ({click,userDetail, userType}) => (
             </div>
             <div className="col-lg-9 col-9 col-sm-10 col-md-9">
               <h5 className='d-block font-adjust-heading heading_color'>{firstCharUpperCase(userDetail.firstName)} {userDetail.lastName!==null?firstCharUpperCase(userDetail.lastName):''}</h5>
-              <h5 className="font-adjust-heading subheading_color"><small>{userDetail.university!=null?userDetail.university.name:''}</small></h5>
-              <h5 className="font-adjust-heading subheading_color"><small>{userDetail.course!=null?userDetail.course.name:''}</small></h5>
-              <h5 className="font-adjust-heading subheading_color"><small>{userDetail.country!=null?userDetail.country:''}</small></h5>
-              <i className="grey_color"><h5 className="font-adjust-heading subheading_color"><small>Last Active:{convertToDate(userDetail.lastActive)}</small></h5></i>
+              <h5 className="font-adjust-heading subheading_color para"><small>{userDetail.university!=null?userDetail.university.name:''}</small></h5>
+              <h5 className="font-adjust-heading subheading_color para"><small>{userDetail.course!=null?userDetail.course.name:''}</small></h5>
+              <h5 className="font-adjust-heading subheading_color para"><small>{userDetail.country!=null?userDetail.country:''}</small></h5>
+              <i className="grey_color"><h5 className="font-adjust-heading subheading_color mt-1"><small>Last Active:{convertToDate(userDetail.lastActive)}</small></h5></i>
             </div>
             {/* <div className="col-lg-3 col-3 col-sm-2 col-md-3">
               <h6 className="font-adjust-heading"><small>2:00 pm</small></h6>

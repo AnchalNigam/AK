@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import './header.presentation.css'; 
-class HeaderView extends Component {
-    render() {
-      return (
+
+export const HeaderView = (handleClick) => (
         <nav className="navbar navbar-expand-md navbar-light bg-light static-top">
         <div  className="container-fluid">
           <img src="https://s3.amazonaws.com/admitkard-frontend-resources/img/img-2/logo.png" alt=""/>
@@ -23,14 +22,12 @@ class HeaderView extends Component {
                 <Link to='/list/mentor' className="nav-link">Mentor List</Link>     
              </li> 
              <li className="nav-item">
-                <button type="button" className="btn btn-style" onClick={this.props.handleClick}>Sign Out</button>
+                <button type="button" className="btn btn-style" onClick={handleClick}>Sign Out</button>
               </li>   
             </ul>
           </div>  
         </div>
       </nav>
-      )
-    }
-  }
+)
 export default HeaderView;
   
