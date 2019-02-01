@@ -11,13 +11,16 @@ import {activeChannel} from './../../store/message/actions'
 import {resetChannel} from './../../store/message/actions';
 import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
+import {Loader} from './../shared/loader/loader.presentation';
+import SocketContext from './../../services/socket/socketService';
 
 class ChatScreenContainer extends React.Component {
     state={
         showLoader:true,
         skip:0,
         userInfo:null,
-        message:null
+        message:null,
+        messageContent:null
     }
     goToPrevPage = () => {
         if(this.state.skip === 0) {
@@ -39,9 +42,6 @@ class ChatScreenContainer extends React.Component {
     //mount lifecycle call
     componentDidMount(){
         console.log('mount')
-        getUserInfo()
-        .then((res)=>this.setState({userInfo:res}))
-        .catch((e)=>console.log(e))
         if(this.props.chatList==null){
           console.log('chatlistnull')
           this.getChatList(this.state.skip);
@@ -49,11 +49,35 @@ class ChatScreenContainer extends React.Component {
         else{
             this.setState({showLoader:false})
         }
-        chatHistory(this.props.match.params.selectedUserId,0)
-        .then((res)=> this.setState({message:res.data.chatHistory})          
-        )
-       .then((result)=>this.props.historyMessageAdd(result.data.chatHistory))
-       .catch((e)=>console.log('chat screen-history error',e))
+        getUserInfo()
+        .then((res)=>this.setState({userInfo:res},()=>{
+          chatHistory(this.props.match.params.selectedUserId,0)
+          .then((result)=>{
+             let messageList=[];
+             this.setState({message:result.data.chatHistory})
+             // this.setState({message:result.data.chatHistory},()=>{
+             let chatHistory=result.data.chatHistory;
+             for(let i of chatHistory){
+               let singleMessage={
+                   _id:i._id, text:i.messageText,createdAt:i.createdAt,user:{
+                   _id:i.sendByUser!=null?i.sendByUser._id:'',
+                   userType:i.sendByUser!=null?i.sendByUser.userType:'',
+                   name:i.sendByUser!=null?i.sendByUser.userType=='student'?i.sendByUser.firstName:'Mentor '+i.sendByUser.firstName:'',
+                   avatar:i.sendByUser!=null?i.sendByUser.profilePicUrl:''
+                 
+                 }
+               }
+               messageList.push(singleMessage);
+               }
+               return messageList;
+             // })
+             })
+           .then((result)=>this.props.historyMessageAdd(result))
+           .catch((e)=>console.log('chat screen-history error',e))
+         }))
+        .catch((e)=>console.log(e))
+      
+       
     }//end
 
 
@@ -65,20 +89,62 @@ class ChatScreenContainer extends React.Component {
         .catch((e)=>console.log(e))
        
     }
+
+    onSend=()=> {
+      let messages={};
+    
+      messages['token']=this.state.userInfo.token;
+      messages['channelId']=this.props.match.params.selectedUserId;
+      messages['user']['userType']=this.state.userInfo.userType;
+      messages['user']['_id']=this.state.userInfo.userId;
+      if(this.state.userInfo.userType=='mentor'){
+        messages['user']['name']='Mentor '+this.state.userInfo.firstName;
+      }
+      else{
+        messages['user']['name']=this.state.userInfo.firstName;
+      }
+      messages.createdAt=new Date().getTime();
+      console.log(messages)
+      // this.props.sendMessage(messages[0]);
+      // socket.emit('channel-send-msg',messages[0]);
+      // this.props.socketContext.socketState.socket.emit('channel-send-msg',this.state.messageContent)
+    }
+
+    messageText=(event)=>{
+       this.setState({messageContent:event.target.value})
+    }
     //rendering function
     render() {
-        console.log(this.props.messages)
         if(this.state.userInfo==null || this.state.message==null){
-            return null
+            return <Loader/>
         }
         return (
           <div className="container-fluid top-adjust">
-                 <ChatScreenView userId={this.props.match.params.selectedUserId} chatHistory={this.props.messages} loggedInUserId={this.state.userInfo.userId} getPrevPageView={this.goToPrevPage} getNextPageView={this.goToNextPage} showLoader={this.state.showLoader} chatList={this.props.chatList}/>
+                 <ChatScreenView 
+                 onChange={this.messageText} 
+                 sendMessage={this.onSend} 
+                 userId={this.props.match.params.selectedUserId}
+                 chatHistory={this.props.messages}
+                 loggedInUserId={this.state.userInfo.userId}
+                 getPrevPageView={this.goToPrevPage}
+                 getNextPageView={this.goToNextPage}
+                 showLoader={this.state.showLoader} 
+                 chatList={this.props.chatList}/>
           </div>  
         );
       }
 }
 
+
+const withSocketContext = (Component) => {
+  return (props) => (
+       <SocketContext.Consumer>
+          {(socketContext) => {
+                    return <Component {...props} socketContext={socketContext} />
+                }}
+        </SocketContext.Consumer>
+  )
+}
 const mapStateToProps = state => {
     return {
          messages: state.messageState.messages,
@@ -113,4 +179,4 @@ const mapDispatchToProps = (dispatch) => ({
   
     }
 }); 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatScreenContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withSocketContext(ChatScreenContainer));

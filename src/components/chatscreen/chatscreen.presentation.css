@@ -1,0 +1,28 @@
+.chat-message textarea {
+    width: 100%;
+    border: 2px solid #4fc3f7;
+    padding: 0.8em 1.42em;
+    margin-bottom: 0.8em;
+    border-radius: 5px;
+    resize: none;
+  }
+
+.chat-height{
+    min-height: 110vh;
+}
+
+.chat-message button {
+    color: white;
+    padding:10px;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: grey;
+    border-radius:5px;
+}
+
+.chat-message button:hover {
+    background: #4fc3f7;
+  }
