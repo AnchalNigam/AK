@@ -10,9 +10,7 @@ class ChatListContainer extends React.Component {
       this.props.history.push('/chatscreen/'+userId)
     }
     render() {
-      console.log(this.props.showLoader)
-      console.log(this.props.chatList)
-       if(this.props.chatList==null || this.props.showLoader){
+      if(this.props.chatList==null || this.props.showLoader){
          return <Loader />
        }
        else{

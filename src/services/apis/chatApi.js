@@ -14,10 +14,10 @@ export async function chatList(skip) {
           'token':userInfo.token
         },
       };
-    let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels?skip=${skip}`,data2).then(response =>{ return response.json()});
+    let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels?skip=${skip}`,data2)
+                       .then(response =>{ return response.json()});
       // let result = await fetch(`${localUrl}/users/5b9a618c7282560a1b6ed6ca/channels`,data2).then(response =>{ return response.json()});
     return result;
-  
     })
     .catch((e)=>console.log(e,'chatlist api error'))
     return result;
@@ -38,8 +38,8 @@ export async function mentorList(skip) {
       },
     
     };
-  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/mentors?skip=${skip}`,data2).then(response =>{ return response.json()});
-   console.log(result)
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/mentors?skip=${skip}`,data2)
+                     .then(response =>{ return response.json()});
    return result;
   })
   .catch((e)=>console.log(e,'mentor list api error'))
@@ -60,7 +60,8 @@ export async function studentList(skip) {
       },
     
     };
-  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/all-students?skip=${skip}`,data2).then(response =>{ return response.json()});
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${userInfo.userId}/all-students?skip=${skip}`,data2)
+                     .then(response =>{ return response.json()});
   return result;
   })
   .catch((e)=>console.log('student list api error'))
@@ -82,7 +83,8 @@ export async function userDetail(data) {
       },
     
     };
-  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${data.selectedUserId}?queriedBy=${userInfo.userId}`,data2).then(response =>{ return response.json()});
+  let result = await fetch(`${urls.baseUrl}/api/mobile/users/${data.selectedUserId}?queriedBy=${userInfo.userId}`,data2)
+                     .then(response =>{ return response.json()});
   return result;
   })
   .catch((e)=>console.log('user detail api error'))
@@ -104,7 +106,8 @@ export async function chatHistory(channelId,skip) {
       },
     
     };
-  let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels/${channelId}/history?skip=${skip}`,data2).then(response =>{ return response.json()});
+  let result = await fetch(`${urls.chatUrl}/api/v1/users/${userInfo.userId}/channels/${channelId}/history?skip=${skip}`,data2)
+                     .then(response =>{ return response.json()});
   return result;
   })
   .catch((e)=>console.log('chatHistory api error'))

@@ -75,6 +75,7 @@ class ChatContainer extends React.Component {
         .catch((e)=>console.log(e))
        }
        else if(this.props.match.params.userType==='mentor'){
+         console.log(skip)
          mentorList(skip)
          .then((response)=>this.setState({list:response.data,userType:'mentor',showLoader:false}))
          .catch((e)=>console.log(e))
@@ -100,6 +101,7 @@ class ChatContainer extends React.Component {
            getPrevPageView={this.goToPrevPage} 
            getNextPageView={this.goToNextPage}
            showLoader={this.state.showLoader}
+           skip={this.state.skip}
          />
          <button onClick={this.check}>hahhhaah</button>
          </div>
