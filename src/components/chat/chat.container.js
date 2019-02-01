@@ -36,7 +36,6 @@ class ChatContainer extends React.Component {
       });
       
     }
-   
     //function call when component mounted
     componentDidMount(){
       const socket = io(urls.chatUrl, {
@@ -101,7 +100,6 @@ class ChatContainer extends React.Component {
            getPrevPageView={this.goToPrevPage} 
            getNextPageView={this.goToNextPage}
            showLoader={this.state.showLoader}
-          
          />
          <button onClick={this.check}>hahhhaah</button>
          </div>

@@ -33,7 +33,6 @@ class ChatScreenContainer extends React.Component {
         this.setState({skip:this.state.skip+1,showLoader:true},()=>{
           this.getChatList(this.state.skip);
         });
-        
     }
 
     //mount lifecycle call

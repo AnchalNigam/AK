@@ -20,11 +20,15 @@ class UserListContainer extends React.Component {
        else{
         return (
           <div className="row">
+          {/*
+            <div className="col-lg-12 col-12 text-center">
+              {(this.props.skips*limit+1)}-{(this.props.skips+1)*limit > this.props.userList.total ? this.props.userList.total:(this.props.skips+1)*limit} of {this.props.userList.total}
+            </div>
+          */}
             <div className="col-lg-12 col-12">
                {this.props.userList.result.map((user)=>(
                    <UserList key={user._id} userDetail={user} userType={this.props.userType}/> 
-               ))}
-              
+               ))} 
             </div>
           </div>
         )

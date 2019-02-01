@@ -3,3 +3,9 @@
 	margin-top:2vmin;
 	margin-bottom:2vmin;
 }
+
+.dropdown-menu {
+	min-width: 13rem;
+	border-radius: 5%;
+	box-shadow: 0 0.3rem 0.3rem gray;
+}
