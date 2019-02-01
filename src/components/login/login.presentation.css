@@ -14,10 +14,40 @@
         font-size:23px;;
     }
 }
+.lds-dual-ring {
+    display: flex;
+    width: 64px;
+    height: 64px;
+    margin: auto;
+}
 
+.lds-dual-ring:after {
+    content: " ";
+    display: flex;
+    width: 46px;
+    height: 46px;
+    justify-content: center;
+    align-self: center;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #4fc3f7;
+    border-color: #4fc3f7 transparent grey transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+} 
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  
 .anim {
-    visibility: hidden;
-    animation: FadeAnimation 5s ease-in 0s;
+    /* visibility: hidden; */
+    /* animation: FadeAnimation 5s ease-in 0s; */
+    color: red;
 }
 
 @keyframes FadeAnimation {

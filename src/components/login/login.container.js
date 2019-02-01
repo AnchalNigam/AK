@@ -12,7 +12,8 @@ class LoginContainer extends React.Component {
     state = {
         userName: "",
         password: "",
-        error:''
+        error:'',
+        isLoading:false
     };
     
     componentDidMount() {
@@ -31,25 +32,42 @@ class LoginContainer extends React.Component {
             password: event.target.value,
         })
     }
-    
+    showAndHide(){
+        setTimeout(
+            document.getElementById('error').classList.replace('anim', 'no-show'),
+            console.log("here")
+        ,5000)
+    }
     submitForm = () => {
+       this.setState({isLoading:true})
        let data={
            email:this.state.userName,
            password:this.state.password
        }
        login(data)
        .then((response)=>{
-           (response.success===true && response.data!==null && response.statusCode !==400) ?
+        
+        (response.statusCode === 201 || response.statusCode ===200) ?
            saveUserDetail(response.data)
-           .then(this.setState({error:''}))
-           .then((res)=>this.props.history.push('/chat'))
-           .catch((e) => console.log(e)) :
-           this.setState({error:response.message})
+           .then((res)=>{
+               this.setState({isLoading:false})
+               this.props.history.push('/chat')
+           })
+           .catch((e) => console.log(e)) 
+            :
+            this.setState({error:response.message,isLoading:false})
        })
        .catch((e)=>console.log('error',e))
+       
     }
-    
+    check=()=>{
+       if(this.state.error!==''){
+           this.setState({error:''})
+       }
+    }
     render() {
+        console.log("rerender")
+        console.log(this.state.error)
         return (
          <div className="container-fluid">
              <div className="row mt-5">
@@ -64,6 +82,7 @@ class LoginContainer extends React.Component {
                             label="UserName"
                             name="UserName"
                             onChange={this.onFilluserName}
+                            onKeyDown={this.check}
                         />
                         <LoginView
                             type="password"
@@ -71,8 +90,15 @@ class LoginContainer extends React.Component {
                             name="Password"
                             onChange={this.onFillPassword}
                         />
-                        <div className={this.state.error!==''?"anim col-12 text-center":"no-show"}>
+                        <div className="col-12 text-center">
+                            <div className="anim">
                                 {this.state.error}
+                            </div>
+                        {this.state.isLoading===true?
+                            <div className="lds-dual-ring"></div>    
+                        :
+                        <div className="lds-dual-ring no-show"></div>
+                        }
                         </div>
                         <ButtonView click={this.submitForm}/>
                     </div>
