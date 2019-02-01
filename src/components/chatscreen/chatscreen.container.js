@@ -13,36 +13,49 @@ import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
 import {Loader} from './../shared/loader/loader.presentation';
 import SocketContext from './../../services/socket/socketService';
-
+const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
+const io = require('socket.io-client/dist/socket.io');
+const shortid = require('shortid');
 class ChatScreenContainer extends React.Component {
     state={
         showLoader:true,
         skip:0,
         userInfo:null,
         message:null,
-        messageContent:null
+        messageContent:'',
+        loadEarlierMsg:false,
+
     }
-    goToPrevPage = () => {
-        if(this.state.skip === 0) {
-          console.log("EOP")
-        } else {
-          this.setState({skip:this.state.skip-1, showLoader:true}, () =>{
-            this.getChatList(this.state.skip);
-          });
-        }
+    
+    componentWillMount(){ 
+      
+    //   const socket = io(urls.chatUrl, {
+    //   reconnection: true,
+    //   reconnectionDelay: 500,
+    //   reconnectionAttempts: Infinity, 
+    //   transports: ['websocket'],
+    //   });
+    //  // const socket="anchal"
+    //   this.props.socketContext.updateSocketValue('socket',socket);
+    //   this.props.socketContext.updateSocketValue('updation',1);
+
+      let data={
+        "channelId":this.props.match.params.selectedUserId,
+        "userId":this.props.match.params.loggedInUser,
+        "readAt":new Date().getTime()
       }
-    //gotonext page for pagination
-    goToNextPage = () => {
-        this.setState({skip:this.state.skip+1,showLoader:true},()=>{
-          this.getChatList(this.state.skip);
-        });
-        
+      // if(this.props.socketContext.socketState.updation===1){
+        this.props.socketContext.socketState.socket.emit('subscribe',data.userId)
+        this.props.socketContext.socketState.socket.emit('read-message',data)
+        this.props.resetState();
+      // }
+  
     }
 
     //mount lifecycle call
     componentDidMount(){
         console.log('mount')
-        if(this.props.chatList==null){
+       if(this.props.chatList==null){
           console.log('chatlistnull')
           this.getChatList(this.state.skip);
         }
@@ -76,10 +89,29 @@ class ChatScreenContainer extends React.Component {
            .catch((e)=>console.log('chat screen-history error',e))
          }))
         .catch((e)=>console.log(e))
-      
-       
+        this.props.setActiveChannel(this.props.match.params.selectedUserId);
     }//end
 
+    // componentWillReceiveProps(recProps) {
+    //   console.log('props receve',recProps)
+    //    if(recProps.messages.length!=0){
+    //     if(recProps.messages[0].channelId===this.props.match.params.selectedUserId){
+    //       // if(!this.state.loadEarlierMsg){
+    //       //   this.setState((prevState, props) => ({
+    //       //     totalMsgCount: prevState.totalMsgCount + 1
+    //       //   })); 
+      
+    //       // }
+    //       let data={
+    //         "channelId":this.props.match.params.selectedUserId,
+    //         "userId":this.props.match.params.loggedInUser,
+    //         "readAt":new Date().getTime()
+    //       }
+    //       this.props.socketContext.socketState.socket.emit('read-message',data)
+    //      }
+    //    }
+       
+    // }
 
     //method to get chatlist
     getChatList=(skip)=>{
@@ -89,30 +121,62 @@ class ChatScreenContainer extends React.Component {
         .catch((e)=>console.log(e))
        
     }
-
+    //method when user sends message
     onSend=()=> {
-      let messages={};
-    
-      messages['token']=this.state.userInfo.token;
-      messages['channelId']=this.props.match.params.selectedUserId;
-      messages['user']['userType']=this.state.userInfo.userType;
-      messages['user']['_id']=this.state.userInfo.userId;
+      let message={};
+      message.user={};
+      message['token']=this.state.userInfo.token;
+      message['channelId']=this.props.match.params.selectedUserId;
+      message['user']['userType']=this.state.userInfo.userType;
+      message['user']['_id']=this.state.userInfo.userId;
       if(this.state.userInfo.userType=='mentor'){
-        messages['user']['name']='Mentor '+this.state.userInfo.firstName;
+        message['user']['name']='Mentor '+this.state.userInfo.firstName;
       }
       else{
-        messages['user']['name']=this.state.userInfo.firstName;
+        message['user']['name']=this.state.userInfo.firstName;
       }
-      messages.createdAt=new Date().getTime();
-      console.log(messages)
-      // this.props.sendMessage(messages[0]);
-      // socket.emit('channel-send-msg',messages[0]);
-      // this.props.socketContext.socketState.socket.emit('channel-send-msg',this.state.messageContent)
+      message['_id']=shortid.generate();
+      message['user']['avatar']=null;
+      message.text=this.state.messageContent;
+      message.createdAt=new Date().getTime();
+      this.props.sendMessage(message);
+      this.props.socketContext.socketState.socket.emit('channel-send-msg',message);
+      this.clearText();
     }
-
+    
     messageText=(event)=>{
        this.setState({messageContent:event.target.value})
     }
+
+    //methd to clear textbox after send
+    clearText=()=>{
+      console.log('clear text')
+      this.setState({messageContent:''})
+    }
+
+    goToPrevPage = () => {
+      if(this.state.skip === 0) {
+        console.log("EOP")
+      } else {
+        this.setState({skip:this.state.skip-1, showLoader:true}, () =>{
+          this.getChatList(this.state.skip);
+        });
+      }
+    }
+    //gotonext page for pagination
+    goToNextPage = () => {
+        this.setState({skip:this.state.skip+1,showLoader:true},()=>{
+          this.getChatList(this.state.skip);
+        });
+        
+    }
+
+    //component unmount
+    componentWillUnmount() {
+      console.log('unmount chatscreen')
+      this.props.resetActiveChannel();
+     }
+
     //rendering function
     render() {
         if(this.state.userInfo==null || this.state.message==null){
@@ -121,6 +185,7 @@ class ChatScreenContainer extends React.Component {
         return (
           <div className="container-fluid top-adjust">
                  <ChatScreenView 
+                 messageContent={this.state.messageContent}
                  onChange={this.messageText} 
                  sendMessage={this.onSend} 
                  userId={this.props.match.params.selectedUserId}

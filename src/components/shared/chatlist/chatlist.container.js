@@ -2,16 +2,25 @@ import React from 'react';
 import {ChatList} from './chatlist.presentation';
 import {withRouter} from 'react-router-dom';
 import {Loader} from './../loader/loader.presentation';
+import {getUserInfo} from './../../../session';
 
 class ChatListContainer extends React.Component {
+    state={
+      userInfo:null
+    }
+    
+    componentDidMount(){
+      getUserInfo()
+      .then((res)=>this.setState({userInfo:res}))
+      .catch((e)=>console.log(e))
+    }
     goToChat = (userId) => {
       // this.props.history.push('/chatscreen');
-      console.log('clicked')
-      this.props.history.push('/chatscreen/'+userId)
+      console.log('clicked',this.state.userInfo.userId)
+      this.props.history.push('/'+this.state.userInfo.userId+'/chatscreen/'+userId)
     }
     render() {
-      console.log(this.props.showLoader)
-      console.log(this.props.chatList)
+    
        if(this.props.chatList==null || this.props.showLoader){
          return <Loader />
        }

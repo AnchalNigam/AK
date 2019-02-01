@@ -9,6 +9,7 @@
 
 .chat-height{
     min-height: 110vh;
+    overflow-y: scroll;
 }
 
 .chat-message button {

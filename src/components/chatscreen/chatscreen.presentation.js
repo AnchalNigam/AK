@@ -5,7 +5,7 @@ import PaginationContainer from './../shared/pagination/pagination.container';
 import getFirtCharAsImage from './../shared/firstchardesign/firstCharDesign.presentation';
 import './chatscreen.presentation.css';
 
-export const ChatScreenView = ({loggedInUserId,chatHistory,onChange,sendMessage,userId,chatList,showLoader,getPrevPageView,getNextPageView}) => (
+export const ChatScreenView = ({loggedInUserId,messageContent,chatHistory,onChange,sendMessage,userId,chatList,showLoader,getPrevPageView,getNextPageView}) => (
   <div className="row">
     <div className="col-lg-4 col-md-5 col-12 d-none d-md-block  box-decoration border ">
         <SearchContainer/>
@@ -20,9 +20,9 @@ export const ChatScreenView = ({loggedInUserId,chatHistory,onChange,sendMessage,
       <div className="row">
         <div className="col-12 chat-height">
           {chatHistory.reverse().map((user,i)=>(
-            <div key={user._id}>
+            <div key={i}>
                 {user.user._id!==loggedInUserId?
-                 (i===0 || user.user._id!=chatHistory[i-1].user._id)?
+                 (i===0 || user.user._id!==chatHistory[i-1].user._id)?
                 <div className="media mt-5">
                     <div className="col-1 nopad">
                       {user.user.avatar == null ? getFirtCharAsImage(user.user.name) : <img src={user.user.avatar} className="img-fluid rounded-circle img-adjust" alt="profile-pic"/>}
@@ -45,7 +45,7 @@ export const ChatScreenView = ({loggedInUserId,chatHistory,onChange,sendMessage,
                    </div>
                 </div>
                 :
-                (i===0 || user.user._id!=chatHistory[i-1].user._id)?
+                (i===0 || user.user._id!==chatHistory[i-1].user._id)?
                 <div className="media mt-5">
                    <div className="ml-4 media-body align-self-center">
                        <div className="card  bg bg-light">
@@ -58,12 +58,13 @@ export const ChatScreenView = ({loggedInUserId,chatHistory,onChange,sendMessage,
                 </div>
                 :
                 <div className="media">
-                    <div className="col-1 nopad">
-                    </div>
-                    <div className="p-1 media-body align-self-center">
+                  
+                    <div className="ml-4 p-1 media-body align-self-center">
                         <div className="card bg bg-light">
-                            <div className="card-body p-1">Hey!How are you?{userId}</div>
+                            <div className="card-body p-1">{user.text}</div>
                         </div>
+                    </div>
+                    <div className="col-1 nopad ml-4">
                     </div>
                 </div>
                 }
@@ -73,7 +74,7 @@ export const ChatScreenView = ({loggedInUserId,chatHistory,onChange,sendMessage,
         <div className="col-11 ml-4">
           <div className="row chat-message">
              <div className="col-10">
-                <textarea  name="message-to-send" onChange={onChange} rows="2" placeholder="Type your message"/>
+                <textarea  name="message-to-send" value={messageContent} onChange={onChange} rows="2" placeholder="Type your message"/>
              </div>
              <div className="col-2">
                 <button onClick={sendMessage}>Send</button>
