@@ -7,11 +7,11 @@ import {mentorList} from './../../services/apis/chatApi';
 import SocketContext from './../../services/socket/socketService';
 import { connect } from "react-redux";
 import {getUserChatList} from './../../store/chatList/actions';
+import {getUserInfo} from './../../session';
 import '../../services/socket/listenSocket';
-
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
-
+let loggedInUser;
 // import mentorlist from './mentorList.json';
 class ChatContainer extends React.Component {
     state={
@@ -20,6 +20,11 @@ class ChatContainer extends React.Component {
         userType:'',
         skip: 0,
         showLoader:true,
+    }
+    componentWillMount(){
+      getUserInfo()
+      .then((res)=>loggedInUser=res)
+      .catch((e)=>console.log(e))
     }
     goToPrevPage = () => {
       if(this.state.skip === 0) {
@@ -47,7 +52,6 @@ class ChatContainer extends React.Component {
       // const socket="anchal"
       this.props.socketContext.updateSocketValue('socket',socket);
       this.props.socketContext.updateSocketValue('updation',1);
-      
       if(this.props.location.pathname!=='/chat'){
         if(this.props.socketContext.socketState.updation===1){
           this.getApiCall(this.state.skip);
@@ -59,17 +63,16 @@ class ChatContainer extends React.Component {
 
       }
     }//end
-    // componentDidUpdate(){
-    //    this.props.socketContext.socketState.socket.on('connect', () => {
-    //     console.log('connection establish');
-    //   })
-    // }
+    componentDidUpdate(){
+       this.props.socketContext.socketState.socket.on('connect', () => {
+        this.props.socketContext.socketState.socket.emit('subscribe',loggedInUser.userId)
+      })
+    }
     //api call
     getApiCall=(skip)=>{
+    
       if(this.props.match.url.search('chat')>-1){
         chatList(skip)
-      //  .then((response)=>this.setState({list:response.data,showLoader:false}))
-      // .then((response)=>console.log(response))
         .then((response)=> this.props.getChatList(response.data))
         .then((res)=>this.setState({showLoader:false}))
         .catch((e)=>console.log(e))

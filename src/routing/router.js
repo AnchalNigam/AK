@@ -11,7 +11,7 @@ export const Router = () => (
       <Route exact path='/' component={LoginContainer}/>
       <Route exact path='/second' component={second}/>
       <Route exact path='/chat' component={ChatContainer}/>
-      <Route exact path='/chatscreen/:selectedUserId' component={withRouter(ChatScreenContainer)}/>
+      <Route exact path='/:loggedInUser/chatscreen/:selectedUserId' component={withRouter(ChatScreenContainer)}/>
       <Route exact path='/list/:userType' component={withRouter(ChatContainer)}/>
       <Route exact path='/:userId/userdetails' component={withRouter(UserDetailsContainer)}/>
       <Route exact path='/*' component={withRouter(Error404)}/>
