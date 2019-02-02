@@ -3,7 +3,7 @@ import {ChatList} from './chatlist.presentation';
 import {withRouter} from 'react-router-dom';
 import {Loader} from './../loader/loader.presentation';
 import {getUserInfo} from './../../../session';
-
+import {limit} from './../../../constants/values';
 class ChatListContainer extends React.Component {
     state={
       userInfo:null
@@ -27,9 +27,16 @@ class ChatListContainer extends React.Component {
        else{
         return (
           <div className="row">
+            <div className="col-12 text-right">
+              {(this.props.skip*limit+1)}-{(this.props.skip+1)*limit > this.props.chatList.total ? this.props.chatList.total:(this.props.skip+1)*limit} of {this.props.chatList.total}
+            </div>
             <div className="col-lg-12 col-12">
                {this.props.chatList.channels.map((user)=>(
-                   <ChatList key={user._id} userDetail={user} click={()=>this.goToChat(user._id)}/> 
+                   <ChatList 
+                    key={user._id}
+                    userDetail={user} 
+                    click={()=>this.goToChat(user._id)}
+                   /> 
                ))}
               
             </div>
