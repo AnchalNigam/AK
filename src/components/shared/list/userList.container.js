@@ -20,7 +20,7 @@ class UserListContainer extends React.Component {
        else{
         return (
           <div className="row">
-            <div className={this.props.skip*limit+1<=this.props.userList.total?"col-12 text-right":"invisible"}>
+            <div className={this.props.skip*limit+1<=this.props.userList.total?"col-12 text-right small font-weight-bold":"invisible"}>
               {(this.props.skip*limit+1)}-{(this.props.skip+1)*limit > this.props.userList.total ? this.props.userList.total:(this.props.skip+1)*limit} of {this.props.userList.total}
             </div>
             <div className="col-lg-12 col-12">

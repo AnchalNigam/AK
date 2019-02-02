@@ -27,7 +27,7 @@ class ChatListContainer extends React.Component {
        else{
         return (
           <div className="row">
-            <div className={this.props.skip*limit+1<=this.props.chatList.total?"col-12 text-right":"invisible"}>
+            <div className={this.props.skip*limit+1<=this.props.chatList.total?"col-12 text-right small font-weight-bold":"invisible"}>
               {(this.props.skip*limit+1)}-{(this.props.skip+1)*limit > this.props.chatList.total ? this.props.chatList.total:(this.props.skip+1)*limit} of {this.props.chatList.total}
             </div>
             <div className="col-lg-12 col-12">
