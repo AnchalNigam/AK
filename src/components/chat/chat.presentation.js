@@ -6,7 +6,7 @@ import UserListContainer from './../shared/list/userList.container';
 import PaginationContainer from './../shared/pagination/pagination.container';
 import './chat.presentation.css';
 
-export const ChatView = ({chatList,userType,list,getPrevPageView,getNextPageView,showLoader,skip,disablePrev}) => (
+export const ChatView = ({chatList,userType,list,getPrevPageView,getNextPageView,showLoader,skip,disablePrev,disableNext}) => (
     <div className="container-fluid top-adjust">
       <div className="row">
         <div className="col-lg-4 col-md-5 col-12  box-decoration border p-3">
@@ -20,6 +20,7 @@ export const ChatView = ({chatList,userType,list,getPrevPageView,getNextPageView
               getNextPageView={getNextPageView}
               skip={skip}
               disablePrev={disablePrev}
+              disableNext={disableNext}
             />
         </div>
         <div className="col-lg-8 col-md-7 d-none d-md-block  box-decoration border">
