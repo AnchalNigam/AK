@@ -6,4 +6,6 @@ In router removed authentication
 In services/Channel.js line 171 to 184 (added total prop)
 
 In admitkard api
-made one api for all students
+1. made one api for all students
+2. in services/channel.js line 112 (111 comment)
+3. changed port from 3000 to 3001

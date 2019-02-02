@@ -23,7 +23,7 @@ export const HeaderView = ({path,handleClick}) => (
                 <Link to='/list/mentor' className="nav-link">Mentor List</Link>     
              </li> 
              <li className="nav-item">
-                <button type="button" className="btn btn-style" onClick={handleClick}>Sign Out</button>
+                <button type="button" className="btn btn-info signout-style" onClick={handleClick}>Sign Out</button>
               </li>   
             </ul>
           </div> 
