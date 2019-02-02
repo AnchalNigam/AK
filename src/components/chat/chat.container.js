@@ -66,6 +66,7 @@ class ChatContainer extends React.Component {
     }//end
     componentDidUpdate(){
        this.props.socketContext.socketState.socket.on('connect', () => {
+         console.log('subscribed')
         this.props.socketContext.socketState.socket.emit('subscribe',loggedInUser.userId)
       })
     }
