@@ -16,14 +16,14 @@ const  INITIAL_STATE  = {
     switch (action.type) {
         case  ADD_MESSAGE :
     
-             return { ...state, messages:  [ action.message,...state.messages] };
+             return { ...state, messages:  [ ...state.messages,action.message] };
 
         case RESET_MESSAGE:
            
             return {...state,messages:[]}
         case HISTORY_MESSAGE:
         
-          return {...state,messages:action.message}
+          return {...state,messages:action.message.reverse()}
         case HISTORY_MESSAGE_APPEND:
         
           return { ...state, messages:  [...state.messages, ...action.message] };

@@ -13,9 +13,11 @@ import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
 import {Loader} from './../shared/loader/loader.presentation';
 import SocketContext from './../../services/socket/socketService';
+import {a} from "../../services/socket/listenSocket";
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
 const shortid = require('shortid');
+let socketUpdate=false;
 class ChatScreenContainer extends React.Component {
     state={
         showLoader:true,
@@ -28,40 +30,49 @@ class ChatScreenContainer extends React.Component {
     }
     
     componentWillMount(){ 
-      
-    //   const socket = io(urls.chatUrl, {
-    //   reconnection: true,
-    //   reconnectionDelay: 500,
-    //   reconnectionAttempts: Infinity, 
-    //   transports: ['websocket'],
-    //   });
-    //  // const socket="anchal"
-    //   this.props.socketContext.updateSocketValue('socket',socket);
-    //   this.props.socketContext.updateSocketValue('updation',1);
-
+      if(this.props.socketContext.socketState.updation===0){
+        const socket = io(urls.chatUrl, {
+        reconnection: true,
+        reconnectionDelay: 500,
+        reconnectionAttempts: Infinity, 
+        transports: ['websocket'],
+        });
+        socketUpdate=true;
+      // const socket="anchal"
+        this.props.socketContext.updateSocketValue('socket',socket);
+        this.props.socketContext.updateSocketValue('updation',1);
+       }
       let data={
         "channelId":this.props.match.params.selectedUserId,
         "userId":this.props.match.params.loggedInUser,
         "readAt":new Date().getTime()
       }
-      // if(this.props.socketContext.socketState.updation===1){
+      if(this.props.socketContext.socketState.updation===1){
+        console.log('socket socket')
+        if(socketUpdate){
+          a(this.props.socketContext.socketState.socket)
+
+        }
         this.props.socketContext.socketState.socket.emit('subscribe',data.userId)
         this.props.socketContext.socketState.socket.emit('read-message',data)
         this.props.resetState();
-      // }
+      }
   
     }
 
     //mount lifecycle call
     componentDidMount(){
         console.log('mount')
-       if(this.props.chatList==null){
-          console.log('chatlistnull')
-          this.getChatList(this.state.skip);
-        }
-        else{
-            this.setState({showLoader:false})
-        }
+      if(this.props.socketContext.socketState.updation===1){
+        this.getChatList(this.state.skip);
+
+      //  if(this.props.chatList==null){
+      //     console.log('chatlistnull')
+      //     this.getChatList(this.state.skip);
+      //   }
+      //   else{
+      //       this.setState({showLoader:false})
+      //   }
         getUserInfo()
         .then((res)=>this.setState({userInfo:res},()=>{
           chatHistory(this.props.match.params.selectedUserId,0)
@@ -90,10 +101,19 @@ class ChatScreenContainer extends React.Component {
          }))
         .catch((e)=>console.log(e))
         this.props.setActiveChannel(this.props.match.params.selectedUserId);
+
+        } 
     }//end
 
+    // componentDidUpdate(prevProps, nextProps){
+    //     console.log(prevProps, this.props.socketContext.socketState.socket)
+    //     if(socketUpdate && this.props.socketContext.socketState.socket!=null){
+    //        a(this.props.socketContext.socketState.socket)
+    //     }
+
+    // }
     // componentWillReceiveProps(recProps) {
-    //   console.log('props receve',recProps)
+    //   // console.log('props receve',recProps)
     //    if(recProps.messages.length!=0){
     //     if(recProps.messages[0].channelId===this.props.match.params.selectedUserId){
     //       // if(!this.state.loadEarlierMsg){
@@ -110,7 +130,6 @@ class ChatScreenContainer extends React.Component {
     //       this.props.socketContext.socketState.socket.emit('read-message',data)
     //      }
     //    }
-       
     // }
 
     //method to get chatlist
@@ -179,6 +198,7 @@ class ChatScreenContainer extends React.Component {
 
     //rendering function
     render() {
+        console.log(this.props.messages)
         if(this.state.userInfo==null || this.state.message==null){
             return <Loader/>
         }

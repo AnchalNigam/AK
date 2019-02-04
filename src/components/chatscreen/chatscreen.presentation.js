@@ -19,7 +19,7 @@ export const ChatScreenView = ({loggedInUserId,messageContent,chatHistory,onChan
     <div className="col-lg-8 col-md-7 box-decoration border">
       <div className="row">
         <div className="col-12 chat-height">
-          {chatHistory.reverse().map((user,i)=>(
+          {chatHistory.map((user,i)=>(
             <div key={i}>
                 {user.user._id!==loggedInUserId?
                  (i===0 || user.user._id!==chatHistory[i-1].user._id)?
