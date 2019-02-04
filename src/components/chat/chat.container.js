@@ -89,6 +89,7 @@ class ChatContainer extends React.Component {
         .then((response)=> this.props.getChatList(response.data))
         .then((res)=>this.setState({showLoader:false}))
         .catch((e)=>console.log(e))
+
        }
        else if(this.props.match.params.userType==='mentor'){
          mentorList(skip)
@@ -155,6 +156,6 @@ const mapDispatchToProps = (dispatch) => ({
 }
 ); 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withSocketContext(ChatContainer)));
+export default connect(mapStateToProps, mapDispatchToProps)(withSocketContext(ChatContainer));
 
 // export default ChatContainer;

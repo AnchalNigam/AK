@@ -11,7 +11,7 @@ export const Router = () => (
     <Switch>
       <Route exact path='/' render={()=>(getToken()==='none' || !getToken()?<LoginContainer/>:<Redirect to='/chat'/>)}/>
       <Route exact path='/second' component={second}/>
-      <Route exact path='/chat' render={()=>(getToken()==='none' || !getToken()?<Redirect to='/'/>:<ChatContainer/>)}/>/>
+      <ProtectedRoute exact path='/chat' component={ChatContainer}/>/>
       <ProtectedRoute exact path='/:loggedInUser/chatscreen/:selectedUserId' component={withRouter(ChatScreenContainer)}/>
       <ProtectedRoute exact path='/list/:userType' component={withRouter(ChatContainer)}/>
       <ProtectedRoute exact path='/:userId/userdetails' component={withRouter(UserDetailsContainer)}/>
