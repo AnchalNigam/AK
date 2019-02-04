@@ -14,6 +14,7 @@ import {getUserInfo} from './../../session';
 import {Loader} from './../shared/loader/loader.presentation';
 import SocketContext from './../../services/socket/socketService';
 import {a} from "../../services/socket/listenSocket";
+import {limit} from './../../constants/values';
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
 const shortid = require('shortid');
@@ -26,7 +27,8 @@ class ChatScreenContainer extends React.Component {
         message:null,
         messageContent:'',
         loadEarlierMsg:false,
-
+        disablePrev: true,
+        disableNext: false
     }
     
     componentWillMount(){ 
@@ -148,7 +150,7 @@ class ChatScreenContainer extends React.Component {
       message['channelId']=this.props.match.params.selectedUserId;
       message['user']['userType']=this.state.userInfo.userType;
       message['user']['_id']=this.state.userInfo.userId;
-      if(this.state.userInfo.userType=='mentor'){
+      if(this.state.userInfo.userType==='mentor'){
         message['user']['name']='Mentor '+this.state.userInfo.firstName;
       }
       else{
@@ -174,20 +176,25 @@ class ChatScreenContainer extends React.Component {
     }
 
     goToPrevPage = () => {
-      if(this.state.skip === 0) {
-        console.log("EOP")
+      if(this.state.skip <= 0) {
+        this.setState({disablePrev:true,disableNext:false})
       } else {
-        this.setState({skip:this.state.skip-1, showLoader:true}, () =>{
+        this.setState({skip:this.state.skip-1, showLoader:true,disableNext:false}, () =>{
+          if(this.state.skip<=0) {
+            this.setState({disablePrev:true})
+          }
           this.getChatList(this.state.skip);
         });
       }
     }
-    //gotonext page for pagination
     goToNextPage = () => {
-        this.setState({skip:this.state.skip+1,showLoader:true},()=>{
-          this.getChatList(this.state.skip);
-        });
-        
+      this.setState({skip:this.state.skip+1,showLoader:true,disablePrev:false},()=>{
+        if(this.props.chatList!==null && (this.state.skip+1)*limit>this.props.chatList.total) {
+          this.setState({disableNext:true})
+        }
+        this.getChatList(this.state.skip);
+      });
+      
     }
 
     //component unmount
@@ -214,7 +221,11 @@ class ChatScreenContainer extends React.Component {
                  getPrevPageView={this.goToPrevPage}
                  getNextPageView={this.goToNextPage}
                  showLoader={this.state.showLoader} 
-                 chatList={this.props.chatList}/>
+                 chatList={this.props.chatList}
+                 skip={this.state.skip}
+                 disablePrev={this.state.disablePrev}
+                 disableNext={this.state.disableNext}
+                 />
           </div>  
         );
       }
