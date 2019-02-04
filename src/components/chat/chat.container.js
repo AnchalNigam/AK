@@ -8,7 +8,8 @@ import SocketContext from './../../services/socket/socketService';
 import { connect } from "react-redux";
 import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
-import '../../services/socket/listenSocket';
+import {a} from "../../services/socket/listenSocket";
+
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
 let loggedInUser;
@@ -67,6 +68,7 @@ class ChatContainer extends React.Component {
     componentDidUpdate(){
        this.props.socketContext.socketState.socket.on('connect', () => {
          console.log('subscribed')
+         a(this.props.socketContext.socketState.socket)
         this.props.socketContext.socketState.socket.emit('subscribe',loggedInUser.userId)
       })
     }

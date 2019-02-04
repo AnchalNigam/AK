@@ -22,13 +22,20 @@ class App extends Component {
    }
 
   // comment out the below to re-render on every click
-   shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return this.state.updation !== nextState.updation || this.props.location.pathname !== nextProps.location.pathname;;
   }
 
   // componentWillUpdate(nextProps, nextState) {
   //   console.log('updated yes')
   //   console.log(nextProps,nextState)
+  // }
+  // componentDidUpdate(prevProps, prevState){
+  //   // console.log(prevProps, prevState)
+  //   if(this.state.socket!=null){
+  //     console.log('yess')
+  //       a(this.state.socket)
+  //   }
   // }
   // componentDidUpdate(prevProps, prevState,){
   //   console.log('yes')
@@ -37,10 +44,10 @@ class App extends Component {
 
   render() {
     console.log('rerenser app')
-    if(this.state.socket!=null){
-      console.log('yess')
-        a(this.state.socket)
-    }
+    // if(this.state.socket!=null){
+    //   console.log('yess')
+    //     a(this.state.socket)
+    // }
     return (
       <div className="col-12 nopad">
         <HeaderContainer />
