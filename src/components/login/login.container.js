@@ -7,6 +7,7 @@ import {ButtonView} from './login.presentation';
 import {login} from './../../services/apis/userManageApi';
 import {saveUserDetail} from './../../session';
 import {getUserInfo} from './../../session';
+import { withRouter } from 'react-router-dom';
 
 class LoginContainer extends React.Component {
     state = {
@@ -18,9 +19,9 @@ class LoginContainer extends React.Component {
     
     componentDidMount() {
         console.log("mounted login")
-        getUserInfo()
-        .then((response)=>(response!=='none'&&response!==null)?this.props.history.push('/chat'):null)
-        .catch((error)=>console.log(error))
+        // getUserInfo()
+        // .then((response)=>(response!=='none'&&response!==null)?this.props.history.push('/chat'):null)
+        // .catch((error)=>console.log(error))
     }
     onFilluserName = event => {
         this.setState({
@@ -111,4 +112,4 @@ class LoginContainer extends React.Component {
       }
 }
 
-export default LoginContainer;
+export default withRouter(LoginContainer);
