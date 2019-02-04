@@ -5,14 +5,16 @@ import PaginationContainer from './../shared/pagination/pagination.container';
 import getFirtCharAsImage from './../shared/firstchardesign/firstCharDesign.presentation';
 import './chatscreen.presentation.css';
 
-export const ChatScreenView = ({loggedInUserId,messageContent,chatHistory,onChange,sendMessage,userId,chatList,showLoader,getPrevPageView,getNextPageView}) => (
+export const ChatScreenView = ({loggedInUserId,messageContent,chatHistory,onChange,sendMessage,userId,chatList,skip,showLoader,getPrevPageView,getNextPageView,disablePrev,disableNext}) => (
   <div className="row">
     <div className="col-lg-4 col-md-5 col-12 d-none d-md-block  box-decoration border ">
         <SearchContainer/>
-        <ChatListContainer showLoader={showLoader} chatList={chatList}/>
+        <ChatListContainer showLoader={showLoader} chatList={chatList} skip={skip}/>
         <PaginationContainer
               getPrevPageView={getPrevPageView}
               getNextPageView={getNextPageView}
+              disablePrev={disablePrev}
+              disableNext={disableNext}
         />
   
     </div>
