@@ -9,6 +9,8 @@ import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
 import {a} from "../../services/socket/listenSocket";
 import {limit} from './../../constants/values';
+import { withRouter } from 'react-router-dom';
+
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
 let loggedInUser;
@@ -97,6 +99,7 @@ class ChatContainer extends React.Component {
          studentList(skip)
          .then((response)=>this.setState({list:response.data,userType:'student',showLoader:false}))
          .catch((e)=>console.log(e))
+         console.log(this.state.list)
       }
     }
 
@@ -152,6 +155,6 @@ const mapDispatchToProps = (dispatch) => ({
 }
 ); 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withSocketContext(ChatContainer));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withSocketContext(ChatContainer)));
 
 // export default ChatContainer;
