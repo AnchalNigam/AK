@@ -15,15 +15,15 @@
 .lds-dual-ring:after {
     content: " ";
     display: flex;
-    width: 46px;
-    height: 46px;
+    width: 50px;
+    height: 50px;
     justify-content: center;
     align-self: center;
     margin: 1px;
     border-radius: 50%;
     border: 5px solid #4fc3f7;
     border-color: #4fc3f7 transparent grey transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+    animation: lds-dual-ring 0.5s linear infinite;
 } 
 
 @keyframes lds-dual-ring {

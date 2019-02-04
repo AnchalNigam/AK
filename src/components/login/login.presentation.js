@@ -43,12 +43,12 @@ export const ButtonView=({click})=>(
   
 )
 
-const LoginView = ({name, onChange, error, label,type}) => (
+const LoginView = ({name, onChange, error, onKeyDown,label,type}) => (
     <div className="col-12 mt-5 text-center">
         <label>
            <h5 className="ak_color_blue">{label}:</h5>
            <input type={type} name={name} placeholder={name} className="inputGroup"
-           onChange={onChange}
+           onChange={onChange} onKeyDown={onKeyDown}
            />
        </label>
     </div>

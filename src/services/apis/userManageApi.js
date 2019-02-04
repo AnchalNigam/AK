@@ -17,6 +17,7 @@ const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development
       };
    
    let result= await fetch(`${urls.baseUrl}/api/v1/users/login`,data2).then(response => response.json());
+   console.log(result)
    return result;
 }//end
 

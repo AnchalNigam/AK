@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {ChatView} from './chat.presentation';
 import {chatList} from './../../services/apis/chatApi';
@@ -9,7 +8,7 @@ import { connect } from "react-redux";
 import {getUserChatList} from './../../store/chatList/actions';
 import {getUserInfo} from './../../session';
 import {a} from "../../services/socket/listenSocket";
-
+import {limit} from './../../constants/values';
 const urls=require("config/" + (process.env.REACT_APP_STAGE==='dev'?'development':'production') + ".js");
 const io = require('socket.io-client/dist/socket.io');
 let loggedInUser;
@@ -21,6 +20,8 @@ class ChatContainer extends React.Component {
         userType:'',
         skip: 0,
         showLoader:true,
+        disablePrev:true,
+        disableNext:false
     }
     componentWillMount(){
       getUserInfo()
@@ -28,21 +29,29 @@ class ChatContainer extends React.Component {
       .catch((e)=>console.log(e))
     }
     goToPrevPage = () => {
-      if(this.state.skip === 0) {
-        console.log("EOP")
+      if(this.state.skip <= 0) {
+        this.setState({disablePrev:true,disableNext:false})
       } else {
-        this.setState({skip:this.state.skip-1, showLoader:true}, () =>{
+        this.setState({skip:this.state.skip-1, showLoader:true,disableNext:false}, () =>{
+          if(this.state.skip<=0) {
+            this.setState({disablePrev:true})
+          }
           this.getApiCall(this.state.skip);
         });
       }
     }
     goToNextPage = () => {
-      this.setState({skip:this.state.skip+1,showLoader:true},()=>{
+      this.setState({skip:this.state.skip+1,showLoader:true,disablePrev:false},()=>{
+        if(this.state.list!==null && (this.state.skip+1)*limit>this.state.list.total) {
+          this.setState({disableNext:true})
+        } else if(this.props.chatList!==null && (this.state.skip+1)*limit>this.props.chatList.total) {
+          this.setState({disableNext:true})
+        }
         this.getApiCall(this.state.skip);
       });
       
     }
-   
+    
     //function call when component mounted
     componentDidMount(){
       const socket = io(urls.chatUrl, {
@@ -60,9 +69,7 @@ class ChatContainer extends React.Component {
           }
       }
       else{
-          
           this.getApiCall(this.state.skip);
-
       }
     }//end
     componentDidUpdate(){
@@ -107,7 +114,9 @@ class ChatContainer extends React.Component {
            getPrevPageView={this.goToPrevPage} 
            getNextPageView={this.goToNextPage}
            showLoader={this.state.showLoader}
-          
+           skip={this.state.skip}
+           disablePrev={this.state.disablePrev}
+           disableNext={this.state.disableNext}
          />
          <button onClick={this.check}>hahhhaah</button>
          </div>

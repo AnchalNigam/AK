@@ -6,12 +6,13 @@ import './App.css';
 import SocketContext from './services/socket/socketService'
 import { withRouter } from 'react-router-dom';
 import {a} from "./services/socket/listenSocket";
+import { getUserInfo } from './session';
 
 // import Login from './components/login/login.presentation';
 class App extends Component {
   state = {
      socket:null,
-     updation:0
+     updation:0,
   };
 
   componentDidMount(){
